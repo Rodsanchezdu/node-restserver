@@ -16,6 +16,7 @@ app.get("/usuario", function (req, res) {
   desde=Number(desde); 
   let cuantos= req.query.cuantos;  
   cuantos =Number(cuantos);
+  console.log(cuantos);
 
   Usuario.find({'estado':true}, 'nombre email role estado google img')
          .skip(desde)
