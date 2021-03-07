@@ -9,13 +9,16 @@ const app = express();
 
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
 
+//==== configuración global de rutas==============//
 //ojo que si se coloca antes del body-parse error porque eso se ejecuta en línea. 
-app.use(require('./routes/usuario'));
+app.use(require('./routes/index'));
+
+
 
 
 

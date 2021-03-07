@@ -3,14 +3,16 @@ const bcryp = require("bcrypt");
 const _ = require("underscore");
 
 const app = express();
+const verificaToken=require("../middlewares/autenticacion");
+const verificaRole =require("../middlewares/autenticacion");
 
 const Usuario = require("../models/usuario");
 
-app.get("/", function (req, res) {
+app.get("/",function (req, res) {
   res.json("Hello World");
 });
 
-app.get("/usuario", function (req, res) {
+app.get("/usuario", verificaToken, function (req, res) {
 
   let desde = req.query.desde;
   desde=Number(desde); 
@@ -45,7 +47,7 @@ app.get("/usuario", function (req, res) {
         });
 });
 
-app.post("/usuario", function (req, res) {
+app.post("/usuario",[verificaToken, verificaRole] , function (req, res) {
   let body = req.body;
 
   let usuario = new Usuario({
@@ -75,7 +77,7 @@ app.post("/usuario", function (req, res) {
   });
 });
 
-app.put("/usuario/:id", function (req, res) {
+app.put("/usuario/:id",[verificaToken, verificaRole] , function (req, res) {
   let idCath = req.params.id;
   let body = req.body;
   //==============/
@@ -90,7 +92,7 @@ app.put("/usuario/:id", function (req, res) {
     { new: true, runValidators: true },
     (err, usuarioDB) => {
       if (err) {
-        console.log("hola mundo");
+        console.log("hola mundo1111");
         res.status(400).json({
           ok: false,
           error: err,
@@ -107,7 +109,7 @@ app.put("/usuario/:id", function (req, res) {
 });
 
 //Borrado solo cambiando el estado a false
-app.delete("/usuario/:id", function (req, res) {
+app.delete("/usuario/:id",[verificaToken, verificaRole], function (req, res) {
   let id= req.params.id;
 
   /* ===== Borrado físico de la DB , no usar mejor========
@@ -117,10 +119,9 @@ app.delete("/usuario/:id", function (req, res) {
   Usuario.findByIdAndUpdate( id, {estado:false}, (error, usuarioBorrado)=>{
     
     if (error) {
-      console.log("hola mundo");
       res.status(400).json({
         ok: false,
-        error: err,
+        error: error,
       });
       return;
     }
