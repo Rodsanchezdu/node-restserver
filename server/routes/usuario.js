@@ -3,8 +3,8 @@ const bcryp = require("bcrypt");
 const _ = require("underscore");
 
 const app = express();
-const verificaToken=require("../middlewares/autenticacion");
-const verificaRole =require("../middlewares/autenticacion");
+const {verificaToken}=require("../middlewares/autenticacion");
+const {verificaRole} =require("../middlewares/autenticacion");
 
 const Usuario = require("../models/usuario");
 
@@ -12,7 +12,7 @@ app.get("/",function (req, res) {
   res.json("Hello World");
 });
 
-app.get("/usuario", verificaToken, function (req, res) {
+app.get("/usuario", [verificaToken], function (req, res) {
 
   let desde = req.query.desde;
   desde=Number(desde); 

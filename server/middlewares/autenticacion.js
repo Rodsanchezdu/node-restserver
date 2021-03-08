@@ -14,17 +14,22 @@ let verificaToken =(req, res, next)=>{
     if (err){
       return res.status(401).json({
         ok:false,
-        err
+        err:{
+          error:err,
+          message:"Error en verificación de token"
+        }
       }); 
     }
 
     req.usuario=paylodDecoded.usuario;
-    console.log('verificaToken:', req.usuario);
+    // console.log('verificaToken:', req.usuario);
     next(); 
   });
 };
 
 let verificaRole =(req, res, next)=>{
+  console.log('verificaRole:', req.usuario);
+
   let usuario=req.usuario; //ya debio pasar por middleware: verificaToken sino acá falla
 
   if(usuario.role!=='ADMIN_ROLE'){
@@ -41,7 +46,7 @@ let verificaRole =(req, res, next)=>{
 
 }
 
-module.exports=[verificaToken, verificaRole];
+module.exports={verificaToken, verificaRole};
 // module.exports=verificaRole;  
 
 
