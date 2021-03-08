@@ -14,6 +14,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+// console.log('Hola mundo mundial internacional'); 
+
 //==== configuración global de rutas==============//
 //ojo que si se coloca antes del body-parse error porque eso se ejecuta en línea. 
 app.use(require('./routes/index'));
