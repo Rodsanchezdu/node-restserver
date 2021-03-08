@@ -41,14 +41,8 @@ if( process.env.NODE_ENV==='dev'){
 process.env.URLBD=urlDB; 
 
 
+//========================================================
+// Google Client ID
+//========================================================
 
-/* 
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://myUser:<password>@cluster0.0g9ei.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-});
-*/
+process.env.CLIENT_ID= process.env.CLIENT_ID ||'847440486088-6pn7uknmh6sb0o8qgevcgc510o719roq.apps.googleusercontent.com'; 
